@@ -13,16 +13,18 @@ Source:
 
 # Import necessary modules
 import random 
+import time
 
 # Local import
 
 # Constants
-TOTAL_OVERS     = 2
+TOTAL_OVERS     = 3
 BALLS_PER_OVER  = 6
 CURRENT_TEAMS   = [
     'India',
     'Australia'
 ]
+QUICK_TESTING   = False
 
 # Other variables
 team_a_total_score = 0
@@ -36,6 +38,13 @@ def get_random_score():
 
     return get_random_number(0, 6)
 
+def ball_gap():
+
+    if(QUICK_TESTING):
+        return
+
+    time.sleep(1)
+
 def pgap(count = 1):
 
     for _count in range(count):
@@ -48,6 +57,8 @@ def play_single_over(chase_flag = False):
     total_score_c_over = 0
 
     for _ball in range(current_over):
+
+        ball_gap()
 
         _ball += 1
 
