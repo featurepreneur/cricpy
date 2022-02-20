@@ -105,13 +105,14 @@ def pgap(count = 1):
         print('')
 
 def play_single_over(
-    chase_flag          = False,
-    chasing_score       = 0,
-    team_current_score  = 0,
-    current_wicket_index = 0
+    chase_flag              = False,
+    chasing_score           = 0,
+    team_current_score      = 0,
+    current_wicket_index    = 0,
+    current_over            = 1
 ):
 
-    current_over = BALLS_PER_OVER
+    current_over_balls = BALLS_PER_OVER
 
     total_score_c_over = 0
 
@@ -120,7 +121,7 @@ def play_single_over(
     if(chase_flag):
         current_team_players = team_b_players
 
-    for _ball in range(current_over):
+    for _ball in range(current_over_balls):
 
         ball_gap()
 
@@ -134,7 +135,7 @@ def play_single_over(
         if(wicket_flag):
             c_run = 0
 
-            print(f"[ball {_ball}]: It's a wicket! {current_batsman} is out! ")
+            print(f"[{current_over}.{_ball}]: It's a wicket! {current_batsman} is out! ")
 
             current_wicket_index += 1
         else:
@@ -143,7 +144,7 @@ def play_single_over(
 
             team_current_score += c_run
 
-            print(f'[ball {_ball}]: {current_batsman} scored: {c_run}')
+            print(f'[{current_over}.{_ball}]: {current_batsman} scored: {c_run}')
 
             # Enable only for testing purpose
             # print(f'[ball {_ball}]: run: {c_run}, total_score_current_over: {total_score_c_over}, team_current_score : {team_current_score} ')
@@ -151,7 +152,7 @@ def play_single_over(
         if(chase_flag):
             if(team_current_score > chasing_score):
                 print(f'Beat the score: chasing_score: {chasing_score}, team_innings_score : {team_current_score}')
-                return team_current_score
+                return team_current_score, current_wicket_index
 
         # if(c_run == 4):
         #     print(f"It's a fantastic Four!!")
@@ -165,10 +166,11 @@ def play_single_over(
 
 def print_score_board(
     current_over,
-    team_innings_score
+    team_innings_score,
+    wicket_index
 ):
 
-    print(f'Scoreboard: {team_innings_score}/0 [{current_over} overs]')
+    print(f'Scoreboard: {team_innings_score}/{wicket_index} [{current_over} overs]')
 
 def play_inninings(
     chase_flag = False, 
@@ -192,14 +194,16 @@ def play_inninings(
             chase_flag          = chase_flag, 
             chasing_score       = chasing_score,
             team_current_score  = team_innings_score,
-            current_wicket_index = wicket_index
+            current_wicket_index = wicket_index,
+            current_over        = current_over
         )
 
         pgap()
 
         print_score_board(
             current_over,
-            team_innings_score
+            team_innings_score,
+            wicket_index
         )
 
         # print(f"trap1763 : team_innings_score: {team_innings_score}, chasing_score: {chasing_score}")
@@ -207,25 +211,25 @@ def play_inninings(
         if(chase_flag):
             if(team_innings_score > chasing_score):
                 # print(f'Beat the score: chasing_score: {chasing_score}, team_innings_score : {team_innings_score}')
-                return team_innings_score
+                return team_innings_score, wicket_index
 
         pgap()
 
 
-    return team_innings_score
+    return team_innings_score, wicket_index
 
 def play_team_a(team_a):
 
     # First team batting
     print(f'{team_a} batting: ')
     pgap()
-    team_a_total_score =  play_inninings(
+    team_a_total_score, wicket_index =  play_inninings(
         chase_flag          = False, 
         over_count          = TOTAL_OVERS,
-        chasing_score       = 0,
+        chasing_score       = 0
     )
     pgap()
-    print(f'{team_a} scored: {team_a_total_score}')
+    print(f'{team_a} scored: {team_a_total_score}, lost wickets : {wicket_index}')
 
     print('-' * 77)
 
@@ -241,34 +245,40 @@ def play_team_b(
     pgap()
     print(f'{team_b} batting: ')
     pgap()
-    team_b_total_score =  play_inninings(
+    team_b_total_score, wicket_index =  play_inninings(
         chase_flag          = True, 
         chasing_score       = chasing_score,
         over_count          = TOTAL_OVERS,
         # team_current_score   = 0
     )
     pgap()
-    print(f'{team_b} scored: {team_b_total_score}')
+    print(f'{team_b} scored: {team_b_total_score}, lost wickets : {wicket_index}')
 
-    return team_b_total_score
+    return team_b_total_score, wicket_index
 
 def choose_winner(
     team_a,
     team_b,
 
     team_a_total_score,
-    team_b_total_score
+    team_b_total_score,
+
+    team_b_wickets
 ):
+
+    wicket_diff = 10 - team_b_wickets
     
     if(team_b_total_score > team_a_total_score):
-        print(f'{team_b} won')
+        print(f'{team_b} won by {wicket_diff} wickets')
         return 
 
     if(team_b_total_score == team_a_total_score):
         print(f"What a match! It's a draw!!")
         return 
 
-    print(f'{team_a} won') 
+    score_diff = team_a_total_score - team_b_total_score
+
+    print(f'{team_a} won by {score_diff} runs') 
 
 def play_game():
 
@@ -283,7 +293,7 @@ def play_game():
     # print(f'team_a_total_score: {team_a_total_score} ')
     
     # Second team batting
-    team_b_total_score = play_team_b(
+    team_b_total_score, team_b_wicket_index = play_team_b(
         team_b,
         team_a_total_score
     )
@@ -294,7 +304,9 @@ def play_game():
         team_b,
 
         team_a_total_score,
-        team_b_total_score
+        team_b_total_score,
+
+        team_b_wicket_index
     )
 
     # 
