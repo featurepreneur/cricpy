@@ -9,6 +9,13 @@ Course work:
 
 Source:
     https://github.com/tactlabs/tact-python/tree/master/csp/cricket
+
+    https://www.espncricinfo.com/player/team/india-6
+
+    https://www.espncricinfo.com/series/icc-cricket-world-cup-2010-11-381449/india-squad-497114/series-squads
+    https://www.espncricinfo.com/series/icc-cricket-world-cup-2010-11-381449/australia-squad-500453/series-squads
+
+
 '''
 
 # Import necessary modules
@@ -27,6 +34,34 @@ CURRENT_TEAMS   = [
     'Australia'
 ]
 QUICK_TESTING   = False
+
+team_a_players = [
+    "Gautam Gambhir",
+    "Virender Sehwag",
+    "Sachin Tendulkar",
+    "Suresh Raina ",
+    "Yuvraj Singh",
+    "Yusuf Pathan ",
+    "Virat Kohli ",
+    "MS Dhoni",
+    "Zaheer Khan",
+    "Harbhajan Singh",
+    "Ravichandran Ashwin",
+]
+
+team_b_players = [
+    "Ricky Ponting",
+    "Michael Clarke",
+    "David Hussey",
+    "Michael Hussey",
+    "Callum Ferguson",
+    "Shane Watson",
+    "Cameron White",
+    "Jason Krejza",
+    "Brett Lee",
+    "Shaun Tait",
+    "Doug Bollinger",
+]
 
 # Other variables
 # team_a_total_score = 0
@@ -72,12 +107,18 @@ def pgap(count = 1):
 def play_single_over(
     chase_flag          = False,
     chasing_score       = 0,
-    team_current_score  = 0
+    team_current_score  = 0,
+    current_wicket_index = 0
 ):
 
     current_over = BALLS_PER_OVER
 
     total_score_c_over = 0
+
+    current_team_players = team_a_players
+
+    if(chase_flag):
+        current_team_players = team_b_players
 
     for _ball in range(current_over):
 
@@ -88,20 +129,24 @@ def play_single_over(
         # Check wicket
         wicket_flag = is_wicket()
 
+        current_batsman = current_team_players[current_wicket_index]
+
         if(wicket_flag):
             c_run = 0
 
-            print(f"[ball {_ball}]: It's a wicket ")
+            print(f"[ball {_ball}]: It's a wicket! {current_batsman} is out! ")
+
+            current_wicket_index += 1
         else:
             c_run = get_random_score()
             total_score_c_over += c_run
 
             team_current_score += c_run
 
-            # print(f'[ball {_ball}]: run: {c_run}')
+            print(f'[ball {_ball}]: {current_batsman} scored: {c_run}')
 
             # Enable only for testing purpose
-            print(f'[ball {_ball}]: run: {c_run}, total_score_current_over: {total_score_c_over}, team_current_score : {team_current_score} ')
+            # print(f'[ball {_ball}]: run: {c_run}, total_score_current_over: {total_score_c_over}, team_current_score : {team_current_score} ')
 
         if(chase_flag):
             if(team_current_score > chasing_score):
@@ -116,7 +161,7 @@ def play_single_over(
     pgap()
     print(f'total_score_current_over : {total_score_c_over}')
 
-    return team_current_score
+    return team_current_score, current_wicket_index
 
 def print_score_board(
     current_over,
@@ -140,10 +185,14 @@ def play_inninings(
         print(f'playing : over {current_over}')
         print('-' * 17)
 
-        team_innings_score = play_single_over(
+        if(_c_over == 0):
+            wicket_index = 0
+
+        team_innings_score, wicket_index = play_single_over(
             chase_flag          = chase_flag, 
             chasing_score       = chasing_score,
-            team_current_score  = team_innings_score
+            team_current_score  = team_innings_score,
+            current_wicket_index = wicket_index
         )
 
         pgap()
@@ -171,11 +220,9 @@ def play_team_a(team_a):
     print(f'{team_a} batting: ')
     pgap()
     team_a_total_score =  play_inninings(
-
         chase_flag          = False, 
         over_count          = TOTAL_OVERS,
         chasing_score       = 0,
-        # team_current_score   = 0
     )
     pgap()
     print(f'{team_a} scored: {team_a_total_score}')
