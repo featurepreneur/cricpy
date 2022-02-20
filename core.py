@@ -17,8 +17,9 @@ import random
 # Local import
 
 # Constants
-BALLS_PER_OVER = 6
-CURRENT_TEAMS = [
+TOTAL_OVERS     = 2
+BALLS_PER_OVER  = 6
+CURRENT_TEAMS   = [
     'India',
     'Australia'
 ]
@@ -58,6 +59,13 @@ def play_single_over(chase_flag = False):
 
     return total_score_c_over
 
+def print_score_board(
+    current_over,
+    team_innings_score
+):
+
+    print(f'Scoreboard: {team_innings_score}/0 [{current_over} overs]')
+
 def play_inninings(
     chase_flag = False, 
     over_count = 1,
@@ -66,14 +74,25 @@ def play_inninings(
 
     team_innings_score = 0
     for _c_over in range(over_count):
-        # print(f'_c_over : {_c_over}')
+
+        current_over = _c_over + 1
+
+        print(f'playing : over {current_over}')
 
         team_innings_score += play_single_over()
+
+        print_score_board(
+            current_over,
+            team_innings_score
+        )
 
         if(chase_flag):
             if(team_innings_score > chasing_score):
                 # print(f'Beat the score: chasing_score: {chasing_score}, team_innings_score : {team_innings_score}')
                 return team_innings_score
+
+        pgap()
+
 
     return team_innings_score
 
@@ -88,7 +107,9 @@ def play_game():
     # First team batting
     print(f'{team_a} batting: ')
     pgap()
-    team_a_total_score =  play_inninings()
+    team_a_total_score =  play_inninings(
+        over_count = TOTAL_OVERS
+    )
     pgap()
     print(f'{team_a} scored: {team_a_total_score}')
 
@@ -97,7 +118,11 @@ def play_game():
     pgap()
     print(f'{team_b} batting: ')
     pgap()
-    team_b_total_score =  play_inninings(chase_flag = True, chasing_score = team_a_total_score)
+    team_b_total_score =  play_inninings(
+        chase_flag = True, 
+        chasing_score = team_a_total_score,
+        over_count = TOTAL_OVERS
+    )
     pgap()
     print(f'{team_b} scored: {team_b_total_score}')
 
