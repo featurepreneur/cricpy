@@ -17,9 +17,11 @@ import time
 
 # Local import
 
+
 # Constants
-TOTAL_OVERS     = 3
+TOTAL_OVERS     = 2
 BALLS_PER_OVER  = 6
+TOTAL_WICKETS   = 10
 CURRENT_TEAMS   = [
     'India',
     'Australia'
@@ -33,6 +35,18 @@ team_b_total_score = 0
 def get_random_number(min = 0, max = 6):
 
     return random.randint(min, max)
+
+def is_wicket():
+
+    r_number = get_random_number()
+
+    if(r_number % 7 == 0):
+        return True
+
+    if(r_number % 9 == 0):
+        return True
+
+    return False
 
 def get_random_score():
 
@@ -62,14 +76,21 @@ def play_single_over(chase_flag = False):
 
         _ball += 1
 
-        c_run = get_random_score()
+        # Check wicket
+        wicket_flag = is_wicket()
 
-        total_score_c_over += c_run
+        if(wicket_flag):
+            c_run = 0
+
+            print(f"[ball {_ball}]: It's a wicket ")
+        else:
+            c_run = get_random_score()
+            total_score_c_over += c_run
+
+            print(f'[ball {_ball}]: run: {c_run}')
 
         # if(c_run == 4):
         #     print(f"It's a fantastic Four!!")
-
-        print(f'[ball {_ball}]: run: {c_run}')
 
         # print(f'ball: {_ball}, run: {c_run}, total_score_current_over: {total_score_c_over} ')
 
@@ -179,7 +200,9 @@ def play_game():
     team_b = CURRENT_TEAMS[1]
 
     # First team batting
-    team_a_total_score = play_team_a(team_a)
+    team_a_total_score = play_team_a(
+        team_a
+    )
 
     # print(f'team_a_total_score: {team_a_total_score} ')
     
