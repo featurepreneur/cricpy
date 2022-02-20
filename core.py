@@ -96,13 +96,7 @@ def play_inninings(
 
     return team_innings_score
 
-def play_game():
-
-    # r_score = get_random_score()
-    # print(r_score)
-
-    team_a = CURRENT_TEAMS[0]
-    team_b = CURRENT_TEAMS[1]
+def play_team_a(team_a):
 
     # First team batting
     print(f'{team_a} batting: ')
@@ -113,8 +107,8 @@ def play_game():
     pgap()
     print(f'{team_a} scored: {team_a_total_score}')
 
-    
-    # Second team batting
+def play_team_b(team_b):
+
     pgap()
     print(f'{team_b} batting: ')
     pgap()
@@ -126,6 +120,17 @@ def play_game():
     pgap()
     print(f'{team_b} scored: {team_b_total_score}')
 
+def play_game():
+
+    team_a = CURRENT_TEAMS[0]
+    team_b = CURRENT_TEAMS[1]
+
+    # First team batting
+    play_team_a(team_a)
+    
+    # Second team batting
+    play_team_a(team_b)
+    
     # Choose winner
     if(team_b_total_score > team_a_total_score):
         print(f'{team_b} won')
