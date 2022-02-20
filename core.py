@@ -55,7 +55,15 @@ def play_single_over(chase_flag = False):
 
         total_score_c_over += c_run
 
-        print(f'ball: {_ball}, run: {c_run}, total_score_current_over: {total_score_c_over} ')
+        # if(c_run == 4):
+        #     print(f"It's a fantastic Four!!")
+
+        print(f'[ball {_ball}]: run: {c_run}')
+
+        # print(f'ball: {_ball}, run: {c_run}, total_score_current_over: {total_score_c_over} ')
+
+    pgap()
+    print(f'total_score_current_over : {total_score_c_over}')
 
     return total_score_c_over
 
@@ -78,13 +86,18 @@ def play_inninings(
         current_over = _c_over + 1
 
         print(f'playing : over {current_over}')
+        print('-' * 17)
 
         team_innings_score += play_single_over()
+
+        pgap()
 
         print_score_board(
             current_over,
             team_innings_score
         )
+
+        # print(f"trap1763 : team_innings_score: {team_innings_score}, chasing_score: {chasing_score}")
 
         if(chase_flag):
             if(team_innings_score > chasing_score):
@@ -107,31 +120,38 @@ def play_team_a(team_a):
     pgap()
     print(f'{team_a} scored: {team_a_total_score}')
 
-def play_team_b(team_b):
+    print('-' * 77)
+
+    return team_a_total_score
+
+def play_team_b(
+    team_b,
+    chasing_score
+):
+
+    # print(f"team_a_total_score : {team_a_total_score}")
 
     pgap()
     print(f'{team_b} batting: ')
     pgap()
     team_b_total_score =  play_inninings(
         chase_flag = True, 
-        chasing_score = team_a_total_score,
+        chasing_score = chasing_score,
         over_count = TOTAL_OVERS
     )
     pgap()
     print(f'{team_b} scored: {team_b_total_score}')
 
-def play_game():
+    return team_b_total_score
 
-    team_a = CURRENT_TEAMS[0]
-    team_b = CURRENT_TEAMS[1]
+def choose_winner(
+    team_a,
+    team_b,
 
-    # First team batting
-    play_team_a(team_a)
+    team_a_total_score,
+    team_b_total_score
+):
     
-    # Second team batting
-    play_team_a(team_b)
-    
-    # Choose winner
     if(team_b_total_score > team_a_total_score):
         print(f'{team_b} won')
         return 
@@ -141,6 +161,31 @@ def play_game():
         return 
 
     print(f'{team_a} won') 
+
+def play_game():
+
+    team_a = CURRENT_TEAMS[0]
+    team_b = CURRENT_TEAMS[1]
+
+    # First team batting
+    team_a_total_score = play_team_a(team_a)
+
+    # print(f'team_a_total_score: {team_a_total_score} ')
+    
+    # Second team batting
+    team_b_total_score = play_team_b(
+        team_b,
+        team_a_total_score
+    )
+    
+    # Choose winner
+    choose_winner(
+        team_a,
+        team_b,
+
+        team_a_total_score,
+        team_b_total_score
+    )
 
     # 
     pass
