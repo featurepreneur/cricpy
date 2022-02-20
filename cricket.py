@@ -29,8 +29,8 @@ CURRENT_TEAMS   = [
 QUICK_TESTING   = False
 
 # Other variables
-team_a_total_score = 0
-team_b_total_score = 0
+# team_a_total_score = 0
+# team_b_total_score = 0
 
 def get_random_number(min = 0, max = 6):
 
@@ -50,7 +50,12 @@ def is_wicket():
 
 def get_random_score():
 
-    return get_random_number(0, 6)
+    r_score = get_random_number(0, 6)
+
+    if(r_score == 5):
+        return 4
+
+    return r_score
 
 def ball_gap():
 
@@ -64,7 +69,11 @@ def pgap(count = 1):
     for _count in range(count):
         print('')
 
-def play_single_over(chase_flag = False):
+def play_single_over(
+    chase_flag          = False,
+    chasing_score       = 0,
+    team_current_score  = 0
+):
 
     current_over = BALLS_PER_OVER
 
@@ -87,7 +96,17 @@ def play_single_over(chase_flag = False):
             c_run = get_random_score()
             total_score_c_over += c_run
 
-            print(f'[ball {_ball}]: run: {c_run}')
+            team_current_score += c_run
+
+            # print(f'[ball {_ball}]: run: {c_run}')
+
+            # Enable only for testing purpose
+            print(f'[ball {_ball}]: run: {c_run}, total_score_current_over: {total_score_c_over}, team_current_score : {team_current_score} ')
+
+        if(chase_flag):
+            if(team_current_score > chasing_score):
+                print(f'Beat the score: chasing_score: {chasing_score}, team_innings_score : {team_current_score}')
+                return team_current_score
 
         # if(c_run == 4):
         #     print(f"It's a fantastic Four!!")
@@ -97,7 +116,7 @@ def play_single_over(chase_flag = False):
     pgap()
     print(f'total_score_current_over : {total_score_c_over}')
 
-    return total_score_c_over
+    return team_current_score
 
 def print_score_board(
     current_over,
@@ -109,7 +128,8 @@ def print_score_board(
 def play_inninings(
     chase_flag = False, 
     over_count = 1,
-    chasing_score = 0
+    chasing_score = 0,
+    # team_current_score = 0
 ):
 
     team_innings_score = 0
@@ -120,7 +140,11 @@ def play_inninings(
         print(f'playing : over {current_over}')
         print('-' * 17)
 
-        team_innings_score += play_single_over()
+        team_innings_score = play_single_over(
+            chase_flag          = chase_flag, 
+            chasing_score       = chasing_score,
+            team_current_score  = team_innings_score
+        )
 
         pgap()
 
@@ -147,7 +171,11 @@ def play_team_a(team_a):
     print(f'{team_a} batting: ')
     pgap()
     team_a_total_score =  play_inninings(
-        over_count = TOTAL_OVERS
+
+        chase_flag          = False, 
+        over_count          = TOTAL_OVERS,
+        chasing_score       = 0,
+        # team_current_score   = 0
     )
     pgap()
     print(f'{team_a} scored: {team_a_total_score}')
@@ -167,9 +195,10 @@ def play_team_b(
     print(f'{team_b} batting: ')
     pgap()
     team_b_total_score =  play_inninings(
-        chase_flag = True, 
-        chasing_score = chasing_score,
-        over_count = TOTAL_OVERS
+        chase_flag          = True, 
+        chasing_score       = chasing_score,
+        over_count          = TOTAL_OVERS,
+        # team_current_score   = 0
     )
     pgap()
     print(f'{team_b} scored: {team_b_total_score}')
@@ -230,3 +259,12 @@ def startpy():
 
 if __name__ == '__main__':
     startpy()
+
+
+'''
+    Issues:
+
+    - Runs 5 should be removed : DONE
+    - 
+
+'''
