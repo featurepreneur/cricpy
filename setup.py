@@ -21,6 +21,6 @@ setuptools.setup(
     ],                                      # Information to filter the project on PyPi website
     python_requires='>=3.6',                # Minimum version requirement of the package
     py_modules=["cricpy2"],             # Name of the python package
-    package_dir={'':'cricpy2',},    # Directory of the source code of the package
+    package_dir={'':'cricpy2'},    # Directory of the source code of the package
     install_requires=requirements                  # Install other dependencies if any
 )
