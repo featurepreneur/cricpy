@@ -61,7 +61,7 @@ def play_knockout_tournament():
     )
 
 
-def startpy():
+def main():
     
     # print("Whatsup Toronto")
 
@@ -69,4 +69,4 @@ def startpy():
 
 
 if __name__ == '__main__':
-    startpy()
+    main()
