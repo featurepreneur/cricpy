@@ -42,14 +42,21 @@ total_teams = [
     "india",
     "australia",
     "srilanka",
-    "england"
+    "england",
+    "westindies",
+    "pakistan"
+    "bangladesh"
 ]
 
 team_short_forms = {
-    "ind" : "india",
-    "sri" : "srilanka",
-    "eng" : "england",
-    "aus" : "australia"
+    "ind"  : "india",
+    "sri"  : "srilanka",
+    "eng"  : "england",
+    "aus"  : "australia",
+    "wind" : "westindies",
+    "newz" : "newzealand",
+    "pak"  : "pakistan",
+    "bang" : "bangladesh "
 }
 
 indian_players = [
@@ -108,6 +115,63 @@ england_players = [
     "Graeme Swann"
 ]
 
+westindies_players = [
+    "Daren Sammy ",
+    "Devendra Bishoo ",
+    "Sulieman Benn ",
+    "Darren Bravo  ",
+    "Chris Gayle ",
+    "Nikita Miller ",
+    "Devon Smith ",
+    "Dwayne Bravo ",
+    "Zaheer Khan",
+    "Andre Russell ",
+    "Kemar Roach ",
+]
+
+newzealand_players = [
+    "James Franklin  ",
+    "Daniel Vettori  ",
+    "Jamie How  ",
+    "Brendon McCullum  ",
+    "Andy McKay ",
+    "Jacob Oram  ",
+    "Tim Southee  ",
+    "Ross Taylor  ",
+    "Kyle Mills ",
+    "Luke Woodcock  ",
+    "Scott Styris  ",
+]
+
+pakistan_players = [
+    "Abdullah Shafique", 
+    "Abid Ali", 
+    "Arshad Iqbal", 
+    "Azhar Ali",
+    "Babar Azam", 
+    "Danish Aziz",   
+    "Faheem Ashraf",
+    "Fawad Alam" , 
+    "Haris Rauf", 
+    "Imad Wasim",
+    "Imran Butt"
+]
+
+bangladesh_players = [
+    "Shakib Al Hasan",
+    "Abdur Razzak",
+    "Junaid Siddique",
+    "Mohammad Ashraful",
+    "Naeem Islam",
+    "Raqibul Hasan",
+    "Shafiul Islam",
+    "Sohrawordi Shuvo",
+    "Tamim Iqbal",
+    "Imrul Kayes",
+    "Mahmudullah"
+]
+
+
 def get_teamname_from_short(short_form):
 
     team_name = team_short_forms[short_form]
@@ -119,10 +183,14 @@ def get_teamname_from_short(short_form):
     return team_name
 
 all_team_players = {
-    "india"     : indian_players,
-    "australia" : australian_players,
-    "srilanka"  : srilankan_players,
-    "england"   : england_players
+    "india"      : indian_players,
+    "australia"  : australian_players,
+    "srilanka"   : srilankan_players,
+    "england"    : england_players,
+    "westindies" : westindies_players,
+    "newzealand" : newzealand_players,
+    "pakistan"   : pakistan_players,
+    "bangladesh" : bangladesh_players
 }
 
 # team_a_players = all_team_players[get_teamname_from_short(CURRENT_MATCH["first"])]
