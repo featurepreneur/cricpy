@@ -24,8 +24,8 @@ import random
 import time
 
 # Local import
-from cricket_constants import *
-from cric_util import pgap, pline
+from .cricket_constants import *
+from .cric_util import pgap, pline
 
 # Constants
 

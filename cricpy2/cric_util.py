@@ -13,7 +13,7 @@ Source:
 import time
 
 # Local import
-from cricket_constants import *
+from .cricket_constants import *
 
 
 def get_short_from_full_team_name(team_name):

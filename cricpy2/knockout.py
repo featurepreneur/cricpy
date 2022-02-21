@@ -10,10 +10,10 @@ Source:
 
 
 # Local import
-import cricket
-import cricket_constants as ccon
-import cric_util
-from cric_util import pgap, take_5
+from . import cricket
+from . import cricket_constants as ccon
+from . import cric_util
+from .cric_util import pgap, take_5
 
 def play_game(team_1, team_2):
 
