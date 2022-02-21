@@ -27,9 +27,9 @@ def pgap(count = 1):
     for _count in range(count):
         print('')
 
-def take_5():
+def take_kitkat():
 
-    time.sleep(15)
+    time.sleep(KITKAT_TIME_SECONDS)
 
 def pline(count = 17):
 

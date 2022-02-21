@@ -25,15 +25,16 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Hard Constants
-BALLS_PER_OVER  = 6
-TOTAL_WICKETS   = 10
+BALLS_PER_OVER          = 6
+TOTAL_WICKETS           = 10
 
 # Soft Constants
-TOTAL_OVERS     = int(os.getenv('TOTAL_OVERS'))
-QUICK_TESTING   = int(os.getenv('QUICK_TESTING', "0"))
-SLEEP_TIME_SECONDS   = float(os.getenv('SLEEP_TIME_SECONDS', "1"))
+TOTAL_OVERS             = int(os.getenv('TOTAL_OVERS'))
+QUICK_TESTING           = int(os.getenv('QUICK_TESTING', "0"))
+SLEEP_TIME_SECONDS      = float(os.getenv('SLEEP_TIME_SECONDS', "1"))
+KITKAT_TIME_SECONDS     = float(os.getenv('KITKAT_TIME_SECONDS', "10"))
 
-CURRENT_MATCH   = {
+CURRENT_MATCH           = {
     "first"     : os.getenv('FIRST', "ind"),
     "second"    : os.getenv('SECOND', "eng")
 }
@@ -44,19 +45,20 @@ total_teams = [
     "srilanka",
     "england",
     "westindies",
-    "pakistan"
-    "bangladesh"
+    "pakistan",
+    "bangladesh",
+    "newzealand"
 ]
 
 team_short_forms = {
-    "ind"  : "india",
-    "sri"  : "srilanka",
-    "eng"  : "england",
-    "aus"  : "australia",
-    "wind" : "westindies",
-    "newz" : "newzealand",
-    "pak"  : "pakistan",
-    "bang" : "bangladesh "
+    "ind"   : "india",
+    "sri"   : "srilanka",
+    "eng"   : "england",
+    "aus"   : "australia",
+    "wind"  : "westindies",
+    "newz"  : "newzealand",
+    "pak"   : "pakistan",
+    "bld"   : "bangladesh"
 }
 
 indian_players = [
@@ -116,31 +118,31 @@ england_players = [
 ]
 
 westindies_players = [
-    "Daren Sammy ",
-    "Devendra Bishoo ",
-    "Sulieman Benn ",
-    "Darren Bravo  ",
-    "Chris Gayle ",
-    "Nikita Miller ",
-    "Devon Smith ",
-    "Dwayne Bravo ",
+    "Daren Sammy",
+    "Devendra Bishoo",
+    "Sulieman Benn",
+    "Darren Bravo",
+    "Chris Gayle",
+    "Nikita Miller",
+    "Devon Smith",
+    "Dwayne Bravo",
     "Zaheer Khan",
-    "Andre Russell ",
-    "Kemar Roach ",
+    "Andre Russell",
+    "Kemar Roach",
 ]
 
 newzealand_players = [
-    "James Franklin  ",
-    "Daniel Vettori  ",
-    "Jamie How  ",
-    "Brendon McCullum  ",
-    "Andy McKay ",
-    "Jacob Oram  ",
-    "Tim Southee  ",
-    "Ross Taylor  ",
-    "Kyle Mills ",
-    "Luke Woodcock  ",
-    "Scott Styris  ",
+    "James Franklin",
+    "Daniel Vettori",
+    "Jamie How",
+    "Brendon McCullum",
+    "Andy McKay",
+    "Jacob Oram",
+    "Tim Southee",
+    "Ross Taylor",
+    "Kyle Mills",
+    "Luke Woodcock",
+    "Scott Styris",
 ]
 
 pakistan_players = [
