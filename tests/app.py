@@ -1,7 +1,4 @@
-import cricpy
-from dotenv import load_dotenv
+from cricpy import play_knockout_tournament
 
-load_dotenv()
-
-cricpy.play_knockout_tournament()
+play_knockout_tournament()
 
