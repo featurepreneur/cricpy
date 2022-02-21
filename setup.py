@@ -8,7 +8,7 @@ requirements = [requirement for requirement in open('requirements.txt')]
 
 setuptools.setup(
     name="cricpy2",                     # This is the name of the package
-    version="0.1.0",                        # The initial release version
+    version="0.1.3",                        # The initial release version
     author="Featureprenuer",                     # Full name of the author
     description="A Cricket Game",
     long_description=long_description,      # Long description read from the the readme file
@@ -21,7 +21,7 @@ setuptools.setup(
     ],                                      # Information to filter the project on PyPi website
     python_requires='>=3.6',                # Minimum version requirement of the package
     py_modules=["cricpy2"],             # Name of the python package
-    package_dir={'':'cricpy2'},# Directory of the source code of the package
+    # package_dir={'':'cricpy2/src'},# Directory of the source code of the package
     install_requires=requirements,
     include_package_data=True                # Install other dependencies if any
 )
