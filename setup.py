@@ -3,6 +3,8 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+requirements = [requirement for requirement in open('requirements.txt')]
+
 setuptools.setup(
     name="cricpy",                     # This is the name of the package
     version="0.0.1",                        # The initial release version
@@ -19,7 +21,5 @@ setuptools.setup(
     python_requires='>=3.6',                # Minimum version requirement of the package
     py_modules=["cricpy"],             # Name of the python package
     package_dir={'':'cricpy'},     # Directory of the source code of the package
-    install_requires=[
-        'python-dotenv',
-    ]                     # Install other dependencies if any
+    install_requires=requirements                  # Install other dependencies if any
 )

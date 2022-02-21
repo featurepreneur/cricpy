@@ -29,7 +29,7 @@ BALLS_PER_OVER  = 6
 TOTAL_WICKETS   = 10
 
 # Soft Constants
-TOTAL_OVERS     = int(os.getenv('TOTAL_OVERS'))
+TOTAL_OVERS     = int(os.getenv('TOTAL_OVERS', 2))
 QUICK_TESTING   = int(os.getenv('QUICK_TESTING', "0"))
 SLEEP_TIME_SECONDS   = float(os.getenv('SLEEP_TIME_SECONDS', "1"))
 
